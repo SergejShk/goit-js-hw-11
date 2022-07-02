@@ -67,7 +67,7 @@ function scrollPage() {
     .firstElementChild.getBoundingClientRect();
 
   window.scrollBy({
-    top: cardHeight * 1.75,
+    top: cardHeight * 2.6,
     behavior: 'smooth',
   });
 }
