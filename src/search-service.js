@@ -44,6 +44,9 @@ export default class ImageApiService {
     this.page = 1;
     this.receivedHitsApi = 0;
   }
+  resetTotalHitsApi() {
+    this.totalHitsApi = 0;
+  }
 
   get query() {
     return this.searchQuery;

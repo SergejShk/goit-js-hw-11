@@ -19,10 +19,21 @@ refs.loadMoreBtn.addEventListener('click', onLoadMoreImage);
 
 async function onFormSubmit(e) {
   e.preventDefault();
-  imageApiService.query = e.currentTarget.elements.searchQuery.value;
+  imageApiService.query = e.currentTarget.elements.searchQuery.value.trim();
 
+  refs.loadMoreBtn.classList.add('is-hidden');
   clearArticlesContainer();
   imageApiService.resetPage();
+  imageApiService.resetTotalHitsApi();
+
+  if (imageApiService.searchQuery === '') {
+    Notify.failure('Sorry, enter a query in the search field.', {
+      width: '500px',
+      fontSize: '28px',
+    });
+    return;
+  }
+
   await handleQueryApi();
   notificationToltalHits();
 }
@@ -33,8 +44,6 @@ async function onLoadMoreImage() {
 }
 
 async function handleQueryApi() {
-  refs.loadMoreBtn.classList.add('is-hidden');
-
   try {
     Loading.circle('Loading...');
     const data = await imageApiService.getArticles();
